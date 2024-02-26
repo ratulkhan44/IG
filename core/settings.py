@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     # App List
     'apps.users',
+    'apps.images'
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# if DEBUG:
+#     STATIC_URL = "static/"
+#     STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#     # STATICFILES_DIRS = [
+#     #     os.path.join(BASE_DIR, "static")
+#     # ]
+#     MEDIA_URL = "/media/"
+#     MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+# else:
+#     STATIC_URL = "static/"
+#     STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#     MEDIA_URL = "media/"
+#     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -175,3 +191,10 @@ SWAGGER_SETTINGS = {
     },
     'VALIDATOR_URL': 'http://localhost:8000',
 }
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIAUEU2BDSTZJ7V2IRO'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'skytripblog'
+AWS_QUERYSTRING_AUTH = False
